@@ -432,7 +432,7 @@ std::istream& operator>>(Uzond*& program, std::istream& in) {
     return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const Uzond& program) {
+std::ostream& operator<<(std::ostream& out, const Uzond program) {
     program.save(out);
     return out;
 } 
