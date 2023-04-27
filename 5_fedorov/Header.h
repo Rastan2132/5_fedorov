@@ -155,3 +155,4 @@ void InsertCh(char* str, int buffer_size, int& cursor, int& term, char symb);
 
 
 std::istream& operator>>(Uzond*& program, std::istream& in);
+std::ostream& operator<<(std::ostream& out, const Uzond& program);

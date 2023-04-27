@@ -25,7 +25,7 @@ int main()
 		program >> file;
 		file.close();
 	}
-		
+
 
 	if (program->get_size() < 0)
 	{
@@ -67,7 +67,9 @@ int main()
 		}
 	} while (work);
 	std::ofstream  file("Uzonds.txt");
-	file << program;
+	for (short i = 0; i < program->get_size(); i++) {
+		file << program[i];
+	}
 	file.close();
 
 }

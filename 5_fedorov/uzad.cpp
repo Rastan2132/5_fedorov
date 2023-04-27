@@ -432,11 +432,10 @@ std::istream& operator>>(Uzond*& program, std::istream& in) {
     return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const Uzond program) {
+std::ostream& operator<<(std::ostream& out, const Uzond& program) {
     program.save(out);
     return out;
-} 
-
+}
 bool Uzond::save(std::ostream& out) const {
     out << size << " " << size_Of_arr_peopls << " ";
 
@@ -447,10 +446,8 @@ bool Uzond::save(std::ostream& out) const {
                 << people[j]->Year << " " << people[j]->piesel << " "
                 << people[j]->sex << " ";
         }
-        out << endl;
+        out << std::endl;
     }
 
     return true;
 }
-
-
