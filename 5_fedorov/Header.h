@@ -152,3 +152,6 @@ void print_find(char* str, short str_size, char* keyword, short key_size, int te
 
 void DeleteCh(char* str, int& cursor, int& term);
 void InsertCh(char* str, int buffer_size, int& cursor, int& term, char symb);
+
+
+std::istream& operator>>(Uzond*& program, std::istream& in);
