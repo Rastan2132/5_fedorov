@@ -55,7 +55,7 @@ Uzond::~Uzond() {
         delete[] people;
     }
 }
-void Uzond::setPeople(Users** people_, int size) {
+void Uzond::setPeople(Users** people_) {
     if (people != nullptr) {
         for (int i = 0; i < size_Of_arr_peopls; i++) {
             delete people[i];
@@ -194,7 +194,7 @@ void Uzond::edit(int index_1, string name, string surname, string year, string p
 
 void Uzond::sort(Uzond*& program)
 {
-    cout << endl << "Wybiesz:\n1 - posortowac za Name\n2 - posortowac za Surname\n3 - posortowac za sex\n4 - posortowac za piesel\n5 - posortowac za Year\nQ - Wyjść\n";
+    cout << endl << "Wybiesz:\n1 - posortowac za Name\n2 - posortowac za Surname\n3 - posortowac za sex\n4 - posortowac za piesel\n5 - posortowac za Year\nQ - Wyj\n";
     cout << endl;
     switch (_getch())
     {
@@ -427,7 +427,7 @@ bool Uzond::initForFile(Uzond*& program) {
 }
 
 
-std::istream& operator>>(std::istream& in, Uzond*& program) {
+std::istream& operator>>(Uzond*& program, std::istream& in) {
     program->initForFile(program);
     return in;
 }
@@ -435,7 +435,7 @@ std::istream& operator>>(std::istream& in, Uzond*& program) {
 std::ostream& operator<<(std::ostream& out, const Uzond& program) {
     program.save(out);
     return out;
-}
+} 
 
 bool Uzond::save(std::ostream& out) const {
     out << size << " " << size_Of_arr_peopls << " ";

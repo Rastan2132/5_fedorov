@@ -88,7 +88,7 @@ string rand_data(int max)
 		}
 		return to_string(number);
 	}
-	return nullptr;
+	return "error";
 }
 
 void show(Uzond* program)
@@ -113,7 +113,7 @@ void show(Uzond* program)
 
 void add(Uzond*& program, vector<string> arr_name, vector<string> arr_suname, vector<string>arr_of_name_urzant)
 {
-	cout << "Сhcesz dodać urzond lub osobę(u lub o)" << endl;
+	cout << "Сhcesz dodac urzond lub osobe(u lub o)" << endl;
 	Uzond* program_n = nullptr;
 	switch (_getch())
 	{
@@ -126,7 +126,7 @@ void add(Uzond*& program, vector<string> arr_name, vector<string> arr_suname, ve
 		for (int i = 0; i < size - 1; i++) {
 			program_n[i] = program[i];
 		}
-		program_n[size - 1].setName(arr_of_name_urzant[rand() % 4]);
+		program_n[size - 1].setName(arr_of_name_urzant[rand() % arr_of_name_urzant.size()]);
 		program_n[size - 1].setNumer(rand_data(num_));
 		program_n[size - 1].createPeopleArray(program->get_size_Of_arr_peopls(), arr_name, arr_suname);
 
@@ -147,14 +147,14 @@ void add(Uzond*& program, vector<string> arr_name, vector<string> arr_suname, ve
 }
 void dell(Uzond*& program)
 {
-	cout << "Usunąć użytkownika lub użytkownika? (u lub o)" << endl;
+	cout << "Usunac uzytkownika lub uzytkownika? (u lub o)" << endl;
 	switch (_getch()) {
 	case (117):
 	{
 		if (program->get_size() <= 0) {
 			error();
 		}
-		cout << "Wybierz numer Uzond, który chcesz usunąć (1 - " << program->get_size() << "):" << endl;
+		cout << "Wybierz numer Uzond, ktory chcesz usunac (1 - " << program->get_size() << "):" << endl;
 		int num = 0;
 		cin >> num;
 		if (num < 1 || num > program->get_size()) {
@@ -170,7 +170,7 @@ void dell(Uzond*& program)
 	case (111):
 	{
 
-		cout << "Wybierz numer użytkownika, którego chcesz usunąć(1 - " << program->get_size_Of_arr_peopls() << "):" << endl;
+		cout << "Wybierz numer uzytkownika, ktorego chcesz usunac(1 - " << program->get_size_Of_arr_peopls() << "):" << endl;
 		int num = 0;
 		cin >> num;
 		if (num < 1 || num >  program->get_size_Of_arr_peopls()) {
@@ -200,7 +200,7 @@ void edit(Uzond*& program, short index_1, short index_2)
 	}
 	string line;
 	string name = "", surname = " ", Year = " ", Piesel = " ", Sex = " ";
-	cout << "Wstępne dane:" << endl;
+	cout << "Wstepne dane:" << endl;
 	program->show_ones(program[index_1], index_2);
 	bool valid_input = false;
 	cout << "Podaj Name Surname Year Pesel i sex: ";
@@ -265,8 +265,8 @@ void print_find(char* str, short str_size, char* keyword, short key_size, int te
 {
 	if (str == nullptr || keyword == nullptr) return;
 
-	int str_len = strlen(str);
-	int key_len = strlen(keyword);
+	size_t str_len = strlen(str);
+	size_t key_len = strlen(keyword);
 
 	if (str_len > str_size || str_len < 0 || key_len > key_size || key_len < 0) return;
 

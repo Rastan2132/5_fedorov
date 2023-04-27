@@ -10,7 +10,7 @@ int main()
 	vector<string> SURNAMES = { "Ivanov","Petrov","Sidorov","Smirnov","Kuznetsov","Ivanova","Petrova","Sidorova","Smirnova","Kuznetsova" };
 	vector<string>NAMES_of_Uzond = { "Urzad_Pracy","Urzad_Spraw","Urzad_Skarbowy","Urzad_s._cywilnego" };
 
-///	if (chek_file("Uzonds.txt") == 0)
+	if (chek_file("Uzonds.txt") == 0)
 	{
 		short size = rand() % 10 + 1;
 		short size_of_peopl = rand() % 10 + 1;
@@ -19,12 +19,12 @@ int main()
 		program->set_size(size);
 		program->set_size_Of_arr_peopls(size_of_peopl);
 	}
-/*	else
+	else
 	{
 		std::ifstream file("Uzonds.txt");
 		program >> file;
 		file.close();
-	}*/
+	}
 		
 
 	if (program->get_size() < 0)
@@ -50,7 +50,7 @@ int main()
 			break;
 		case (101):
 			do {
-				cout << "wprowadź numer urzendu i numer osoby" << endl;
+				cout << "wprowadz numer urzendu i numer osoby" << endl;
 				cin >> urz_num >> p_num;
 				if (urz_num > 0 && p_num > 0 && urz_num <= program->get_size() && p_num <= program->get_size_Of_arr_peopls())
 					break;

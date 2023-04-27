@@ -74,7 +74,7 @@ public:
     Uzond(const Uzond& other);
     ~Uzond();
 
-    void setPeople(Users** people_, int size);
+    void setPeople(Users** people_);
     Users** getPeople() const { return people; }
 
     int get_size_Of_arr_peopls() { return size_Of_arr_peopls; }
