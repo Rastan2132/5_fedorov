@@ -10,20 +10,6 @@ Uzond::Users::Users(const Users& other) {
     sex = other.sex;
 
 }
-void Uzond::Users::show(Uzond program, short size_of_people)
-{
-
-    for (short j = 0; j < size_of_people; j++)
-    {
-        Uzond::Users* person = program.getPerson(j);
-        if (person != nullptr) {
-            cout << right << setw(3) << setfill('0') << j + 1 << setfill(' ') << " " << MANIP << person->Name << " " << MANIP << person->Surname << " " << MANIP << person->Year << " " << MANIP << person->piesel << " " << MANIP << person->sex << " ";
-        }
-        cout << endl << " ";
-    }
-    cout << endl << endl;
-}
-
 Uzond::Uzond()
 {
     people = nullptr;
@@ -102,20 +88,6 @@ Uzond::Users* Uzond::getPerson(int index) const {
     }
     return people[index];
 }
-void Uzond::removeUzond(Uzond*& program, short index) {
-    if (index < 0 || index >= size) {
-        return;
-    }
-    Uzond* new_program = new Uzond[size - 1];
-    int j = 0;
-    for (int i = 0; i < size; i++) {
-        if (i != index) {
-            new_program[j] = program[i];
-            j++;
-        }
-    }
-    program = new_program;
-}
 
 void Uzond::removePerson(int index) {
     if (index < 0 || index >= size_Of_arr_peopls) {
@@ -148,31 +120,23 @@ void Uzond::addPerson(vector<string> arrOfNames, vector<string> arrOfSurnames) {
     new_people[size_Of_arr_peopls - 1] = person;
 }
 
-void Uzond::show(Uzond program)
+void Uzond::Users::show()
 {
 
-    for (short j = 0; j < size_Of_arr_peopls; j++)
-    {
-        Uzond::Users* person = program.getPerson(j);
-        if (person != nullptr) {
-            cout << right << setw(3) << setfill('0') << j + 1 << setfill(' ') << " "
-                << MANIP << person->Name << " "
-                << MANIP << person->Surname << " "
-                << MANIP << person->Year << " "
-                << MANIP << person->piesel << " "
-                << MANIP << person->sex << " ";
-        }
+            cout<< MANIP << Name << " "
+                << MANIP << Surname << " "
+                << MANIP << Year << " "
+                << MANIP << piesel << " "
+                << MANIP << sex << " ";
+    
         cout << endl << " ";
-    }
-    cout << endl << endl;
+
 }
 
-void Uzond::show_ones(Uzond program, int j)
+void Uzond::show_ones( int j)
 {
-
-    Uzond::Users* person = program.getPerson(j);
-    if (person != nullptr) {
-        cout << right << setw(3) << setfill('0') << j + 1 << setfill(' ') << " " << MANIP << person->Name << " " << MANIP << person->Surname << " " << MANIP << person->Year << " " << MANIP << person->piesel << " " << MANIP << person->sex << " ";
+    if (people[j] != nullptr) {
+        cout << right << setw(3) << setfill('0') << j + 1 << setfill(' ') << " " << MANIP << people[j]->Name << " " << MANIP << people[j]->Surname << " " << MANIP << people[j]->Year << " " << MANIP << people[j]->piesel << " " << MANIP << people[j]->sex << " ";
     }
     cout << endl << endl;
 }
@@ -192,243 +156,138 @@ void Uzond::edit(int index_1, string name, string surname, string year, string p
 
 
 
-void Uzond::sort(Uzond*& program)
+void Uzond::sort(short flag)
 {
-    cout << endl << "Wybiesz:\n1 - posortowac za Name\n2 - posortowac za Surname\n3 - posortowac za sex\n4 - posortowac za piesel\n5 - posortowac za Year\nQ - Wyj\n";
-    cout << endl;
-    switch (_getch())
+
+    switch (flag)
     {
-    case '1':
-        for (short l = 0; l < program->get_size(); l++)
-        {
-            for (short i = 0; i < program->get_size_Of_arr_peopls(); i++) {
-                for (short j = i + 1; j < program->get_size_Of_arr_peopls(); j++) {
-                    if (program[l].getPeople()[i]->Name.compare(program[l].getPeople()[j]->Name) > 0) {
-                        swap(program[l].getPeople()[i]->Name, program[l].getPeople()[j]->Name);
-                        swap(program[l].getPeople()[i]->Surname, program[l].getPeople()[j]->Surname);
-                        swap(program[l].getPeople()[i]->sex, program[l].getPeople()[j]->sex);
-                        swap(program[l].getPeople()[i]->piesel, program[l].getPeople()[j]->piesel);
-                        swap(program[l].getPeople()[i]->Year, program[l].getPeople()[j]->Year);
+    case 1:
+            for (short i = 0; i < size_Of_arr_peopls; i++) {
+                for (short j = i + 1; j < size_Of_arr_peopls; j++) {
+                    if (people[i]->Name.compare(people[j]->Name) > 0) {
+                        swap(people[i]->Name, people[j]->Name);
+                        swap(people[i]->Surname, people[j]->Surname);
+                        swap(people[i]->sex, people[j]->sex);
+                        swap(people[i]->piesel, people[j]->piesel);
+                        swap(people[i]->Year, people[j]->Year);
+                    }
+                }
+        }
+        break;
+    case 2:
+            for (short i = 0; i < size_Of_arr_peopls; i++) {
+                for (short j = i + 1; j < size_Of_arr_peopls; j++) {
+                    if (people[i]->Surname.compare(people[j]->Surname) > 0) {
+                        swap(people[i]->Name, people[j]->Name);
+                        swap(people[i]->Surname, people[j]->Surname);
+                        swap(people[i]->sex, people[j]->sex);
+                        swap(people[i]->piesel, people[j]->piesel);
+                        swap(people[i]->Year, people[j]->Year);
                     }
                 }
             }
-        }
-        cout << endl << "Sorted" << endl;
-        system("pause");
+     
         break;
-    case '2':
-        for (short l = 0; l < program->get_size(); l++)
-        {
-            for (short i = 0; i < program->get_size_Of_arr_peopls(); i++) {
-                for (short j = i + 1; j < program->get_size_Of_arr_peopls(); j++) {
-                    if (program[l].getPeople()[i]->Surname.compare(program[l].getPeople()[j]->Surname) > 0) {
-                        swap(program[l].getPeople()[i]->Name, program[l].getPeople()[j]->Name);
-                        swap(program[l].getPeople()[i]->Surname, program[l].getPeople()[j]->Surname);
-                        swap(program[l].getPeople()[i]->sex, program[l].getPeople()[j]->sex);
-                        swap(program[l].getPeople()[i]->piesel, program[l].getPeople()[j]->piesel);
-                        swap(program[l].getPeople()[i]->Year, program[l].getPeople()[j]->Year);
+    case 3:
+            for (short i = 0; i < size_Of_arr_peopls; i++) {
+                for (short j = i + 1; j < size_Of_arr_peopls; j++) {
+                    if (people[i]->sex.compare(people[j]->sex) > 0) {
+                        swap(people[i]->Name, people[j]->Name);
+                        swap(people[i]->Surname, people[j]->Surname);
+                        swap(people[i]->sex, people[j]->sex);
+                        swap(people[i]->piesel, people[j]->piesel);
+                        swap(people[i]->Year, people[j]->Year);
                     }
                 }
             }
-        }
-        cout << endl << "Sorted" << endl;
-        system("pause");
         break;
-    case '3':
-        for (short l = 0; l < program->get_size(); l++)
+    case 4:
+        for (short i = 0; i < size_Of_arr_peopls; i++)
         {
-            for (short i = 0; i < program->get_size_Of_arr_peopls(); i++) {
-                for (short j = i + 1; j < program->get_size_Of_arr_peopls(); j++) {
-                    if (program[l].getPeople()[i]->sex.compare(program[l].getPeople()[j]->sex) > 0) {
-                        swap(program[l].getPeople()[i]->Name, program[l].getPeople()[j]->Name);
-                        swap(program[l].getPeople()[i]->Surname, program[l].getPeople()[j]->Surname);
-                        swap(program[l].getPeople()[i]->sex, program[l].getPeople()[j]->sex);
-                        swap(program[l].getPeople()[i]->piesel, program[l].getPeople()[j]->piesel);
-                        swap(program[l].getPeople()[i]->Year, program[l].getPeople()[j]->Year);
-                    }
+            for (short j = i + 1; j < size_Of_arr_peopls; j++)
+            {
+                if (people[i]->piesel.compare(people[j]->piesel) > 0)
+                {
+                    swap(people[i]->Name, people[j]->Name);
+                    swap(people[i]->Surname, people[j]->Surname);
+                    swap(people[i]->sex, people[j]->sex);
+                    swap(people[i]->piesel, people[j]->piesel);
+                    swap(people[i]->Year, people[j]->Year);
                 }
             }
         }
-        cout << endl << "Sorted" << endl;
-        system("pause");
         break;
-    case '4':
-        for (short l = 0; l < program->get_size(); l++)
-        {
-            for (short i = 0; i < program->get_size_Of_arr_peopls(); i++) {
-                for (short j = i + 1; j < program->get_size_Of_arr_peopls(); j++) {
-                    if (program[l].getPeople()[i]->piesel.compare(program[l].getPeople()[j]->piesel) > 0) {
-                        swap(program[l].getPeople()[i]->Name, program[l].getPeople()[j]->Name);
-                        swap(program[l].getPeople()[i]->Surname, program[l].getPeople()[j]->Surname);
-                        swap(program[l].getPeople()[i]->sex, program[l].getPeople()[j]->sex);
-                        swap(program[l].getPeople()[i]->piesel, program[l].getPeople()[j]->piesel);
-                        swap(program[l].getPeople()[i]->Year, program[l].getPeople()[j]->Year);
-                    }
+    case 5:
+
+        for (short i = 0; i < size_Of_arr_peopls; i++) {
+            for (short j = i + 1; j < size_Of_arr_peopls; j++) {
+                if (people[i]->Year.compare(people[j]->Year) > 0) {
+                    swap(people[i]->Name, people[j]->Name);
+                    swap(people[i]->Surname, people[j]->Surname);
+                    swap(people[i]->sex, people[j]->sex);
+                    swap(people[i]->piesel, people[j]->piesel);
+                    swap(people[i]->Year, people[j]->Year);
                 }
             }
         }
-        cout << endl << "Sorted" << endl;
-        system("pause");
         break;
-    case '5':
-        for (short l = 0; l < program->get_size(); l++)
-        {
-            for (short i = 0; i < program->get_size_Of_arr_peopls(); i++) {
-                for (short j = i + 1; j < program->get_size_Of_arr_peopls(); j++) {
-                    if (program[l].getPeople()[i]->Year.compare(program[l].getPeople()[j]->Year) > 0) {
-                        swap(program[l].getPeople()[i]->Name, program[l].getPeople()[j]->Name);
-                        swap(program[l].getPeople()[i]->Surname, program[l].getPeople()[j]->Surname);
-                        swap(program[l].getPeople()[i]->sex, program[l].getPeople()[j]->sex);
-                        swap(program[l].getPeople()[i]->piesel, program[l].getPeople()[j]->piesel);
-                        swap(program[l].getPeople()[i]->Year, program[l].getPeople()[j]->Year);
-                    }
-                }
-            }
-        }
-        cout << endl << "Sorted" << endl;
-        system("pause");
-        break;
-    case 'q':
-    case 'Q':
-        break;
-    default:
-    {
-        cout << endl << "Press 1, 2 or Q " << endl;
-        system("pause");
-    }
+        
     }
 }
+void Uzond::find(char* keyword) {
 
-void Uzond::find(Uzond*& program)
-{
-    if (program == nullptr || program->get_size() == 0 || program->get_size_Of_arr_peopls() == 0)
+    for (short i = 0; i < size_Of_arr_peopls; i++)
     {
-        error();
-        return;
-    }
-    char* keyword = new char[MAXLINE]; keyword[0] = '\0';
+        if (strstr_lower(stringToArrChar(people[i]->Name).data(), keyword)
+            || strstr_lower(stringToArrChar(people[i]->Surname).data(), keyword)
+            || strstr_lower(stringToArrChar(people[i]->piesel).data(), keyword)
+            || strstr_lower(stringToArrChar(people[i]->Year).data(), keyword)
+            || strstr_lower(stringToArrChar(people[i]->sex).data(), keyword))
 
-    COORD enter, hat;
-
-    system("cls");
-    cout << " Esc - Wejscie" << endl << endl;
-    cout << "Szukaj: ";
-    enter = getCursorPosition();
-
-    cout << endl << " #   " stru << endl;
-    hat = getCursorPosition();
-
-    COORD temp_pos;
-    short len = 0;
-
-    do
-    {
-        //Вводим ключевое слово для поиска.
         {
-            int i = 0;
-            do
-            {
-                if (!stredit(keyword, MAXLINE, enter.X, enter.Y, len, false)) return;
-                len = (short)strlen(keyword);
+            cout << left << setw(3) << i + 1 << "  ";
+            print_find(stringToArrChar(people[i]->Name).data(), MAXLINE, keyword, MAXLINE, Red);
+            print_find(stringToArrChar(people[i]->Surname).data(), MAXLINE, keyword, MAXLINE, Red);
+            print_find(stringToArrChar(people[i]->Year).data(), MAXLINE, keyword, MAXLINE, Red);
+            print_find(stringToArrChar(people[i]->piesel).data(), MAXLINE, keyword, MAXLINE, Red);
+            print_find(stringToArrChar(people[i]->sex).data(), MAXLINE, keyword, MAXLINE, Red);
 
-                for (i = 0; i < len; i++)
-                {
-                    if (!(isdigit_r(keyword[i]) || isalpha_r(keyword[i]))) break;
-                }
-
-            } while (i != len || len == 0);
-        }
-
-        // Выводим результаты. 
-
-        setCursorPosition(hat.X, hat.Y);
-
-        //Очищаем предыдущие результаты поиска.
-        for (int i = 0; i < size; i++)
-        {
-            temp_pos = getCursorPosition();
-            Clear(temp_pos.X, temp_pos.Y + i);
-        }
-        setCursorPosition(hat.X, hat.Y);
-        system("cls");
-        cout << " Esc - Wejscie" << endl << endl;
-        cout << "Szukaj: ";
-        enter = getCursorPosition();
-
-        cout << endl << " #   " stru << endl;
-        hat = getCursorPosition();
-        //Выводим новые результаты поиска
-        for (short l = 0; l < size; l++)
-        {
-            cout << "Rezultat o " << l + 1 << " linii" << endl;
-            for (short i = 0; i < program->get_size_Of_arr_peopls(); i++)
-            {
-                if (strstr_lower(stringToArrChar(program[l].getPeople()[i]->Name).data(), keyword)
-                    || strstr_lower(stringToArrChar(program[l].getPeople()[i]->Surname).data(), keyword)
-                    || strstr_lower(stringToArrChar(program[l].getPeople()[i]->piesel).data(), keyword)
-                    || strstr_lower(stringToArrChar(program[l].getPeople()[i]->Year).data(), keyword)
-                    || strstr_lower(stringToArrChar(program[l].getPeople()[i]->sex).data(), keyword))
-                {
-                    cout << left << setw(3) << i + 1 << "  ";
-                    print_find(stringToArrChar(program[l].getPeople()[i]->Name).data(), MAXLINE, keyword, MAXLINE, Red);
-                    print_find(stringToArrChar(program[l].getPeople()[i]->Surname).data(), MAXLINE, keyword, MAXLINE, Red);
-                    print_find(stringToArrChar(program[l].getPeople()[i]->Year).data(), MAXLINE, keyword, MAXLINE, Red);
-                    print_find(stringToArrChar(program[l].getPeople()[i]->piesel).data(), MAXLINE, keyword, MAXLINE, Red);
-                    print_find(stringToArrChar(program[l].getPeople()[i]->sex).data(), MAXLINE, keyword, MAXLINE, Red);
-
-                    cout << endl;
-                }
-            }
             cout << endl;
         }
-    } while (true); //Пока не нажата Esc.
-
-    delete[] keyword; keyword = nullptr;
+    }
+    cout << endl;
 }
 
 
-bool Uzond::initForFile(Uzond*& program) {
-    ifstream in("Uzonds.txt");
-    if (!in.is_open()) {
-        program->set_size(-1); // if error *size = -1;
-        return false;
-    }
-    short size, size_of_peopl;
-    in >> size >> size_of_peopl;
-
-
-    Uzond* program_n = new Uzond[size];
-    for (int i = 0; i < size; i++) {
-        program_n[i].people = nullptr;
+bool Uzond::initForFile(std::istream& in, short size_of_peopl) {
+   
         string name_u, numer;
         in >> name_u >> numer;
-        program_n[i].Name = name_u;
-        program_n[i].Numer = numer;
+        Name = name_u;
+        Numer = numer;
 
         if (size_of_peopl > 0) {
-            Users** people = new Users * [size_of_peopl];
+            Users** p = new Users * [size_of_peopl];
             for (int j = 0; j < size_of_peopl; j++) {
                 string name, surname, year, pesel, sex;
                 in >> name >> surname >> year >> pesel >> sex;
-                people[j] = new Users(name, surname, year, pesel, sex);
+                p[j] = new Users(name, surname, year, pesel, sex);
             }
-            program_n[i].people = people;
+           people = p;
         }
-    }
-
-    program = program_n;
-    for (short i = 0; i < size; i++)
-        program[i].set_size(size);
-    for (short i = 0; i < size_of_peopl; i++)
-        program[i].set_size_Of_arr_peopls(size_of_peopl);
-
-    in.close();
+    
     return true;
 }
 
-
-std::istream& operator>>(Uzond*& program, std::istream& in) {
-    program->initForFile(program);
+std::istream& operator>>(std::istream& in, Uzond*& program){
+    short size, size_of_peopl;
+    in >> size >> size_of_peopl;
+    program = new Uzond[size];
+    for (short i = 0; i < size; i++) {
+        program[i].initForFile(in, size_of_peopl);
+        program[i].set_size(size);
+        program[i].set_size_Of_arr_peopls(size_of_peopl);
+    }
     return in;
 }
 

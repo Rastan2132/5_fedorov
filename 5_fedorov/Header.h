@@ -11,6 +11,7 @@
 #include <vector>
 #include <sstream>
 
+
 using namespace std;
 
 #define MAXLINE 20
@@ -58,7 +59,7 @@ private:
         Users(const Users& other);
 
         
-        void show(Uzond program, short size_of_people);
+        void show();
         friend class Uzond;
     };
 
@@ -73,7 +74,6 @@ public:
     Uzond();
     Uzond(const Uzond& other);
     ~Uzond();
-
     void setPeople(Users** people_);
     Users** getPeople() const { return people; }
 
@@ -91,19 +91,15 @@ public:
 
     void createPeopleArray(int size_of_people, vector<string> arrOfNames, vector<string> arrOfSurnames);
     Users* getPerson(int index) const;
-    void removeUzond(Uzond*& program, short index);
     void removePerson(int index);
 
     void addPerson(vector<string> arrOfNames, vector<string> arrOfSurnames);
-
-    void show(Uzond program);
-    void show_ones(Uzond program, int j);
+    void show_ones( int j);
 
     void edit(int index_1, string name, string surname, string year, string piesel, string sex);
-
-    bool initForFile(Uzond*& program);
-    void sort(Uzond*& program);
-    void find(Uzond*& program); 
+    void find(char* keyword);
+    bool initForFile(istream& in, short size_of_peopl);
+    void sort(short flag);
     bool save(std::ostream& out) const;
     Users& operator[](int index) {
         return *people[index];
@@ -128,6 +124,7 @@ public:
 
 void error();
 
+void removeUzond(Uzond*& program, short index);
 Uzond* create(short size, short size_of_peopl, vector<string> arrOfNameUrzant, vector<string> arrOfNames, vector<string> arrOfSurnames);
 void show(Uzond* program);
 void add(Uzond*& program, vector<string> arr_name, vector<string> arr_suname, vector<string>arr_of_name_urzant);
@@ -138,6 +135,7 @@ vector<char> stringToArrChar(const string& str);
 void edit(Uzond*& program, short index_1, short index_2);
 void dell(Uzond*& program);
 bool chek_file(string file);
+void find(Uzond*& program);
 
 COORD getCursorPosition(void);
 void Clear(int x, int y, long cnt = 100);
@@ -154,5 +152,5 @@ void DeleteCh(char* str, int& cursor, int& term);
 void InsertCh(char* str, int buffer_size, int& cursor, int& term, char symb);
 
 
-std::istream& operator>>(Uzond*& program, std::istream& in);
+std::istream& operator>>(std::istream& in, Uzond*& program);
 std::ostream& operator<<(std::ostream& out, const Uzond& program);

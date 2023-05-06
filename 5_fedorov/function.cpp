@@ -106,8 +106,12 @@ void show(Uzond* program)
 		cout << right << setw(3) << setfill('0') << i + 1 << setfill(' ') << " ";
 		cout << MANIP << program[i].getName() << " " << MANIP << program[i].getNumer() << endl;
 		cout << endl << " ";
-		program[i].show(program[i]);
+		for (short j = 0; j < program->get_size_Of_arr_peopls(); j++) {
 
+			cout << right << setw(3) << setfill('0') << j + 1 << setfill(' ') << " ";
+			program[i].getPerson(j)->show();
+		}
+		cout << endl<<endl;
 	}
 }
 
@@ -160,7 +164,7 @@ void dell(Uzond*& program)
 		if (num < 1 || num > program->get_size()) {
 			error();
 		}
-		program->removeUzond(program, num);
+		removeUzond(program, num);
 		short size = program->get_size();
 		size--;
 		program->set_size(size);
@@ -201,7 +205,7 @@ void edit(Uzond*& program, short index_1, short index_2)
 	string line;
 	string name = "", surname = " ", Year = " ", Piesel = " ", Sex = " ";
 	cout << "Wstepne dane:" << endl;
-	program->show_ones(program[index_1], index_2);
+	program->show_ones(index_2);
 	bool valid_input = false;
 	cout << "Podaj Name Surname Year Pesel i sex: ";
 	while (!valid_input) {
@@ -330,3 +334,77 @@ vector<char> stringToArrChar(const string& str) {
 	return char_array;
 }
 
+void removeUzond(Uzond*& program, short index) {
+	if (index < 0 || index >= program->get_size()) {
+		return;
+	}
+	Uzond* new_program = new Uzond[(program->get_size()) - 1];
+	int j = 0;
+	for (int i = 0; i < program->get_size(); i++) {
+		if (i != index) {
+			new_program[j] = program[i];
+			j++;
+		}
+	}
+	program = new_program;
+}
+
+
+void find(Uzond*& program)
+{
+	if (program == nullptr || program->get_size() == 0 || program->get_size_Of_arr_peopls() == 0)
+	{
+		error();
+		return;
+	}
+	char* keyword = new char[MAXLINE]; keyword[0] = '\0';
+
+	COORD enter, hat;
+
+	system("cls");
+	cout << " Esc - Wejscie" << endl << endl;
+	cout << "Szukaj: ";
+	enter = getCursorPosition();
+
+	cout << endl << " #   " stru << endl;
+	hat = getCursorPosition();
+
+	COORD temp_pos;
+	short len = 0;
+
+	//Вводим ключевое слово для поиска.
+	{
+		int i = 0;
+		do
+		{
+			if (!stredit(keyword, MAXLINE, enter.X, enter.Y, len, false)) return;
+			len = (short)strlen(keyword);
+
+			for (i = 0; i < len; i++)
+			{
+				if (!(isdigit_r(keyword[i]) || isalpha_r(keyword[i]))) break;
+			}
+
+		} while (i != len || len == 0);
+	}
+
+	// Выводим результаты. 
+
+	system("cls");
+	cout << " Esc - Wejscie" << endl << endl;
+	cout << "Szukaj: ";
+	enter = getCursorPosition();
+
+	cout << endl <<  stru << endl;
+	hat = getCursorPosition();
+	//Выводим новые результаты поиска
+
+
+	for (short l = 0; l < program->get_size(); l++)
+	{
+		cout << "Rezultat o " << l + 1 << " linii" << endl;
+		program[l].find(keyword);
+	}
+	system("pause");
+	delete[] keyword; keyword = nullptr;
+}

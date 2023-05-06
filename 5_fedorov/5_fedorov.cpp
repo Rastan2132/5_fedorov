@@ -21,11 +21,12 @@ int main()
 	}
 	else
 	{
+		Uzond* arr = new Uzond[1];
+		program = arr;
 		std::ifstream file("Uzonds.txt");
-		program >> file;
+		file >> program;
 		file.close();
 	}
-
 
 	if (program->get_size() < 0)
 	{
@@ -58,11 +59,41 @@ int main()
 			} while (true);
 			edit(program, urz_num - 1, p_num - 1);
 			break;
-		case (115):
-			program->sort(program);
+		case (115): {
+			short flag = 0;
+			cout << endl << "Wybiesz:\n1 - posortowac za Name\n2 - posortowac za Surname\n3 - posortowac za sex\n4 - posortowac za piesel\n5 - posortowac za Year\n";
+			cout << endl;
+			switch (_getch())
+			{
+			case (49):
+				flag = 1;
+				break;
+			case (50):
+				flag = 2;
+				break;
+			case (51):
+				flag = 3;
+				break;
+			case (52):
+				flag = 4;
+				break;
+			case (53):
+				flag = 5;
+				break;
+			
+			default:
+			{
+				cout << "error" << endl;
+				break;
+			}
+			
+		}
+			for (short l = 0; l < program->get_size(); l++)
+				program[l].sort(flag);
+		}
 			break;
 		case (121):
-			program->find(program);
+			find(program);
 			break;
 		}
 	} while (work);
