@@ -118,6 +118,7 @@ void Uzond::addPerson(vector<string> arrOfNames, vector<string> arrOfSurnames) {
     Users** new_people = new Users * [size_Of_arr_peopls];
     new_people = people;
     new_people[size_Of_arr_peopls - 1] = person;
+    people = new_people;
 }
 
 void Uzond::Users::show()
@@ -291,14 +292,14 @@ std::istream& operator>>(std::istream& in, Uzond*& program){
     return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const Uzond& program) {
+std::ostream& operator<<(std::ostream& out,  Uzond& program) {
+
     program.save(out);
+
     return out;
 }
-bool Uzond::save(std::ostream& out) const {
-    out << size << " " << size_Of_arr_peopls << " ";
-
-    for (short i = 0; i < size; i++) {
+bool Uzond::save(std::ostream& out)  {
+    
         out << Name << " " << Numer << " ";
         for (short j = 0; j < size_Of_arr_peopls; j++) {
             out << people[j]->Name << " " << people[j]->Surname << " "
@@ -306,7 +307,6 @@ bool Uzond::save(std::ostream& out) const {
                 << people[j]->sex << " ";
         }
         out << std::endl;
-    }
 
     return true;
 }

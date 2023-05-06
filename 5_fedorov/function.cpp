@@ -141,6 +141,7 @@ void add(Uzond*& program, vector<string> arr_name, vector<string> arr_suname, ve
 	case (111):
 		short size_of_peopl = program->get_size_Of_arr_peopls();
 		size_of_peopl++;
+		
 		for (short i = 0; i < size_of_peopl; i++)
 			program[i].set_size_Of_arr_peopls(size_of_peopl);
 		for (int i = 0; i < program->get_size(); i++)

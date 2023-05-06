@@ -100,7 +100,7 @@ public:
     void find(char* keyword);
     bool initForFile(istream& in, short size_of_peopl);
     void sort(short flag);
-    bool save(std::ostream& out) const;
+    bool save(std::ostream& out) ;
     Users& operator[](int index) {
         return *people[index];
     }
@@ -153,4 +153,4 @@ void InsertCh(char* str, int buffer_size, int& cursor, int& term, char symb);
 
 
 std::istream& operator>>(std::istream& in, Uzond*& program);
-std::ostream& operator<<(std::ostream& out, const Uzond& program);
+std::ostream& operator<<(std::ostream& out,  Uzond& program);

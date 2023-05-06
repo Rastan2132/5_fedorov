@@ -98,9 +98,9 @@ int main()
 		}
 	} while (work);
 	std::ofstream  file("Uzonds.txt");
-	for (short i = 0; i < program->get_size(); i++) {
+	file << program->get_size() << " " << program->get_size_Of_arr_peopls() << " ";
+	for(short i=0;i< program->get_size();i++)
 		file << program[i];
-	}
 	file.close();
 
 }
